@@ -3,4 +3,4 @@
   // ...
 export default class DummyClass {
 
-}
+};
