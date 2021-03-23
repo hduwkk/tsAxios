@@ -6,6 +6,10 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
 
+const router = express.Router()
+router.get('/simple/get', function (req, res) {
+  res.json({msg: 'hello world'})
+})
 
 const app = express()
 
@@ -20,6 +24,8 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 
 app.use(webpackHotMiddleware(compiler))
+
+app.use(router)
 
 app.use(express.static(__dirname))
 
