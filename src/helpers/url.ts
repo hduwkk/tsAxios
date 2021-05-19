@@ -1,3 +1,4 @@
+import { isPlainObject, isDate } from './util'
 function encode(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')
@@ -45,12 +46,4 @@ export function buildURL(url: string, params?: any) {
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
   }
   return url
-}
-
-function isDate(val: any): val is Date {
-  return Object.prototype.toString.call(val) === '[object Date]'
-}
-
-function isPlainObject(val: any): val is Object {
-  return Object.prototype.toString.call(val) === '[object Object]'
 }
