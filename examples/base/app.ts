@@ -15,9 +15,9 @@ const paramsD = { foo: new Date() }
 
 const paramsE = { foo: '@:$, ' }
 
-axios({ method: 'post', url: '/base/post', headers: { 'content-type': 'application/json; charset=utf-8' }, data: paramsA })
-axios({ method: 'post', url: '/base/post', data: paramsB })
-axios({ method: 'post', url: '/base/post', data: paramsC })
-axios({ method: 'post', url: '/base/post', data: paramsD })
-axios({ method: 'post', url: '/base/post', data: new URLSearchParams('q=URLUtils.searchParams&topic=api') })
-axios({ method: 'post', url: '/base/buffer', data: new Int32Array([21, 31]) })
+// axios({ method: 'post', url: '/base/post', responseType: 'json', data: paramsA }).then(res => console.log(res, paramsA))
+// axios({ method: 'post', url: '/base/post', data: paramsB }).then(res => console.log(res, paramsB))
+axios({ method: 'post', url: '/base/post', data: paramsC }).then(res => console.log(res, paramsC))
+// axios({ method: 'post', url: '/base/post', data: paramsD }).then(res => console.log(res, paramsD))
+// axios({ method: 'post', url: '/base/post', data: new URLSearchParams('q=URLUtils.searchParams&topic=api') }).then(res => console.log(res, 'URLSearchParams'))
+// axios({ method: 'post', url: '/base/buffer', data: new Int32Array([21, 31]) }).then(res => console.log(res, 'Int32Array'))
