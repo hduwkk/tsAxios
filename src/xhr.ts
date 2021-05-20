@@ -6,7 +6,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const { data = null, url, method = 'get', headers, responseType, timeout } = config
     const request = new XMLHttpRequest()
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
     if (responseType) {
       request.responseType = responseType
     }

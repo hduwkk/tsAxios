@@ -24,47 +24,98 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // -------- 路由---start --------
 const router = express.Router()
-router.get('/simple/get', function (req, res, next) {
-  res.json({ msg: 'hello world' })
-})
 
-router.get('/base/get', function (req, res, next) {
-  res.json(req.query)
-})
-router.post('/base/post', function (req, res, next) {
-  res.json(req.body)
-})
-router.post('/base/buffer', function (req, res, next) {
-  const msg = []
-  req.on('data', chunk => {
-    if (chunk) msg.push(chunk)
+registerSimpleRouter(router)
+registerBaseRouter(router)
+registerErrorRouter(router)
+registerExtendRouter(router)
+
+function registerSimpleRouter (router) {
+  router.get('/simple/get', function (req, res, next) {
+    res.json({ msg: 'hello world' })
   })
-  req.on('end', () => {
-    const buf = Buffer.concat(msg)
-    res.json(buf.toJSON())
+}
+
+function registerBaseRouter (router) {
+  router.get('/base/get', function (req, res, next) {
+    res.json(req.query)
   })
-})
-
-
-
-//  -------- 路由---Error --------
-router.get('/error/get', function (req, res) {
-  const type = req.query.type
-  if (type === 'hello') {
-    res.json({ msg: `hello world` })
-  } else {
-    res.status(406).send('Not Acceptable')
-    // res.end()
-  }
-})
-
-router.get('/error/timeout', function (req, res) {
-  setTimeout(() => {
-    res.json({
-      msg: `hello world`
+  router.post('/base/post', function (req, res, next) {
+    res.json(req.body)
+  })
+  router.post('/base/buffer', function (req, res, next) {
+    const msg = []
+    req.on('data', chunk => {
+      if (chunk) msg.push(chunk)
     })
-  }, 3000)
-})
+    req.on('end', () => {
+      const buf = Buffer.concat(msg)
+      res.json(buf.toJSON())
+    })
+  })
+}
+
+function registerErrorRouter (router) {
+  router.get('/error/get', function (req, res) {
+    const type = req.query.type
+    if (type === 'hello') {
+      res.json({ msg: `hello world` })
+    } else {
+      res.status(406).send('Not Acceptable')
+      // res.end()
+    }
+  })
+
+  router.get('/error/timeout', function (req, res) {
+    setTimeout(() => {
+      res.json({
+        msg: `hello world`
+      })
+    }, 3000)
+  })
+}
+
+function registerExtendRouter (router) {
+  router.get('/extend/get', function (req, res) {
+    res.json({
+      msg: 'hello world'
+    })
+  })
+
+  router.options('/extend/options', function (req, res) {
+    res.end()
+  })
+
+  router.delete('/extend/delete', function (req, res) {
+    res.end()
+  })
+
+  router.head('/extend/head', function (req, res) {
+    res.end()
+  })
+
+  router.post('/extend/post', function (req, res) {
+    res.json(req.body)
+  })
+
+  router.put('/extend/put', function (req, res) {
+    res.json(req.body)
+  })
+
+  router.patch('/extend/patch', function (req, res) {
+    res.json(req.body)
+  })
+  router.get('/extend/user', function (req, res) {
+    res.json({
+      code: 0,
+      message: 'ok',
+      result: {
+        name: 'jack',
+        age: 18
+      }
+    })
+  })
+}
 
 app.use(router)
 // -------- 路由---end --------

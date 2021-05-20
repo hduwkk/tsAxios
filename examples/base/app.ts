@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios from '../../src/axios'
 
 // /base/get?a=1&b=2
 const paramsA = { a: 1, b: 2 }
