@@ -48,18 +48,17 @@ router.post('/base/buffer', function (req, res, next) {
 
 
 //  -------- 路由---Error --------
-router.get('/error/get', function(req, res) {
-  if (Math.random() > 0.5) {
-    res.json({
-      msg: `hello world`
-    })
+router.get('/error/get', function (req, res) {
+  const type = req.query.type
+  if (type === 'hello') {
+    res.json({ msg: `hello world` })
   } else {
-    res.status(500)
-    res.end()
+    res.status(406).send('Not Acceptable')
+    // res.end()
   }
 })
 
-router.get('/error/timeout', function(req, res) {
+router.get('/error/timeout', function (req, res) {
   setTimeout(() => {
     res.json({
       msg: `hello world`

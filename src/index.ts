@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from './tpes'
+import { AxiosRequestConfig, AxiosResponse } from './types'
 import { buildURL } from './helpers/url'
 import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/header'
