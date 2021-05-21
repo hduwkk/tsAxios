@@ -30,6 +30,7 @@ registerBaseRouter(router)
 registerErrorRouter(router)
 registerExtendRouter(router)
 registerInterceptorRouter(router)
+registerConfigRouter(router)
 
 function registerSimpleRouter (router) {
   router.get('/simple/get', function (req, res, next) {
@@ -121,6 +122,12 @@ function registerExtendRouter (router) {
 function registerInterceptorRouter (router) {
   router.get('/interceptor/get', function (req, res) {
     res.end('hello')
+  })
+}
+
+function registerConfigRouter (router) {
+  router.post('/config/post', function (req, res) {
+    res.json(req.body)
   })
 }
 
