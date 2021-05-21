@@ -31,6 +31,7 @@ registerErrorRouter(router)
 registerExtendRouter(router)
 registerInterceptorRouter(router)
 registerConfigRouter(router)
+registerMoreRouter(router)
 
 function registerSimpleRouter (router) {
   router.get('/simple/get', function (req, res, next) {
@@ -128,6 +129,12 @@ function registerInterceptorRouter (router) {
 function registerConfigRouter (router) {
   router.post('/config/post', function (req, res) {
     res.json(req.body)
+  })
+}
+
+function registerMoreRouter (router) {
+  router.get('/more/get', function (req, res) {
+    res.json({ text: 'hello' })
   })
 }
 

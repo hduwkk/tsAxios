@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
-import xhr from '../xhr'
+import xhr from './xhr'
 import { buildURL } from '../helpers/url'
 import { flattenHeders } from '../helpers/header'
 import transform from '../core/transform'
