@@ -5,6 +5,8 @@ import { AxiosRequestConfig } from './types'
 const configs: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
   headers: {
     common: {
       Accept: 'application/json, text/plain, */*'
