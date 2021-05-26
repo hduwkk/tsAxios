@@ -30,6 +30,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     progressHeaders()
 
+    progressCancel()
+
     request.send(data)
 
     function configureRequest(): void {
@@ -97,7 +99,12 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     function progressCancel(): void {
-      //
+      if (cancelToken) {
+        cancelToken.promise.then(reason => {
+          request.abort()
+          reject(reason)
+        })
+      }
     }
 
     function handleResponse(response: AxiosResponse) {
