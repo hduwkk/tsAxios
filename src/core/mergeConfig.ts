@@ -28,6 +28,7 @@ strats.params = fromVal2Strat
 strats.data = fromVal2Strat
 
 strats.headers = deepMergeStrat
+strats.auth = deepMergeStrat
 
 export default function mergeConfig(
   config1: AxiosRequestConfig,

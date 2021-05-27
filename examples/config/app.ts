@@ -1,6 +1,5 @@
-import axios from '../../src/axios'
+import axios, { AxiosTransformer } from '../../src/index'
 import qs from 'qs'
-import { AxiosTransformer } from '../../src/types'
 
 axios.defaults.headers.common['test2'] = 123;
 (window as any).axios = axios
