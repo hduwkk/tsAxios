@@ -73,6 +73,9 @@
     "collectCoverageFrom": [
       "src/*.{js,ts}",
       "src/**/*.{js,ts}"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/boot.ts"
     ]
   },
   "prettier": {
