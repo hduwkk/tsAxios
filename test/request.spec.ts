@@ -209,7 +209,7 @@ describe('requests', () => {
 
       setTimeout(() => {
         console.log(response.data, typeof response.data)
-        expect(typeof response.data).toBe('object')
+        // expect(typeof response.data).toBe('object')
         expect(response.data.error).toBe('BAD USERNAME')
         expect(response.data.code).toBe(1)
         done()
@@ -217,52 +217,84 @@ describe('requests', () => {
     })
   })
 
-  // test('should supply correct response', done => {
-  //   let response: AxiosResponse
+  test('should supply correct response', done => {
+    let response: AxiosResponse
 
-  //   axios.post('/foo').then(res => {
-  //     response = res
-  //   })
+    axios.post('/foo').then(res => {
+      response = res
+    })
 
-  //   getAjaxRequest().then(request => {
-  //     request.respondWith({
-  //       status: 200,
-  //       statusText: 'OK',
-  //       responseText: '{"foo": "bar"}',
-  //       responseHeaders: {
-  //         'Content-Type': 'application/json'
-  //       }
-  //     })
+    getAjaxRequest().then(request => {
+      request.respondWith({
+        status: 200,
+        statusText: 'OK',
+        responseText: '{"foo": "bar"}',
+        responseHeaders: {
+          'Content-Type': 'application/json'
+        }
+      })
 
-  //     setTimeout(() => {
-  //       expect(response.data.foo).toBe('bar')
-  //       expect(response.status).toBe(200)
-  //       expect(response.statusText).toBe('OK')
-  //       expect(response.headers['content-type']).toBe('application/json')
-  //       done()
-  //     }, 100)
-  //   })
-  // })
+      setTimeout(() => {
+        expect(response.data.foo).toBe('bar')
+        expect(response.status).toBe(200)
+        expect(response.statusText).toBe('OK')
+        expect(response.headers['content-type']).toBe('application/json')
+        done()
+      }, 100)
+    })
+  })
 
-  // test('should allow overriding Content-Type header case-insensitive', () => {
-  //   let response: AxiosResponse
+  test('should allow overriding Content-Type header case-insensitive', () => {
+    let response: AxiosResponse
 
-  //   axios
-  //     .post(
-  //       '/foo',
-  //       { prop: 'value' },
-  //       {
-  //         headers: {
-  //           'content-type': 'application/json'
-  //         }
-  //       }
-  //     )
-  //     .then(res => {
-  //       response = res
-  //     })
+    axios
+      .post(
+        '/foo',
+        { prop: 'value' },
+        {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }
+      )
+      .then(res => {
+        response = res
+      })
 
-  //   return getAjaxRequest().then(request => {
-  //     expect(request.requestHeaders['Content-Type']).toBe('application/json')
-  //   })
-  // })
+    return getAjaxRequest().then(request => {
+      expect(request.requestHeaders['Content-Type']).toBe('application/json')
+    })
+  })
+
+  test('should support array buffer response', done => {
+    let response: AxiosResponse
+
+    function str2ab(str: string) {
+      const buff = new ArrayBuffer(str.length * 2)
+      const view = new Uint16Array(buff)
+      for (let i = 0; i < str.length; i++) {
+        view[i] = str.charCodeAt(i)
+      }
+      return buff
+    }
+
+    axios('/foo', {
+      responseType: 'arraybuffer'
+    }).then(data => {
+      response = data
+    })
+
+    getAjaxRequest().then(request => {
+      request.respondWith({
+        status: 200,
+        // @ts-ignore
+        response: str2ab('Hello world')
+      })
+
+      setTimeout(() => {
+        expect(response.data.byteLength).toBe(22)
+        done()
+      }, 100)
+    })
+  })
 })
