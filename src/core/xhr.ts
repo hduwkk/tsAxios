@@ -106,10 +106,19 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     function progressCancel(): void {
       if (cancelToken) {
-        cancelToken.promise.then(reason => {
-          request.abort()
-          reject(reason)
-        })
+        // tslint:disable-next-line: no-floating-promises
+        cancelToken.promise
+          .then(reason => {
+            request.abort()
+            reject(reason)
+          })
+          .catch(
+            // 忽略该代码分支的测试
+            /* istanbul ignore next */
+            () => {
+              // do nothing
+            }
+          )
       }
     }
 

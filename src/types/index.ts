@@ -37,14 +37,6 @@ export interface AxiosRequestConfig {
   [propName: string]: any
 }
 
-export interface AxiosBasicCredentials {
-  username: string
-  password: string
-}
-export interface AxiosTransformer {
-  (data: any, headers?: any): any
-}
-
 export interface AxiosResponse<T = any> {
   data: T
   status: number
@@ -90,14 +82,6 @@ export interface AxiosClassStatic {
   new (config: AxiosRequestConfig): Axios
 }
 
-export interface Cancel {
-  message?: string
-}
-
-export interface CancelStatic {
-  new (message?: string): Cancel
-}
-
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
 
@@ -126,6 +110,10 @@ export interface RejectedFn {
   (error: any): any
 }
 
+export interface AxiosTransformer {
+  (data: any, headers?: any): any
+}
+
 export interface CancelToken {
   promise: Promise<Cancel>
   reason?: Cancel
@@ -135,6 +123,14 @@ export interface CancelToken {
 
 export interface Canceler {
   (message?: string): void
+}
+
+export interface Cancel {
+  message?: string
+}
+
+export interface CancelStatic {
+  new (message?: string): Cancel
 }
 
 export interface CancelExecutor {
@@ -149,4 +145,9 @@ export interface CancelTokenSource {
 export interface CancelTokenStatic {
   new (executor: CancelExecutor): CancelToken
   source(): CancelTokenSource
+}
+
+export interface AxiosBasicCredentials {
+  username: string
+  password: string
 }

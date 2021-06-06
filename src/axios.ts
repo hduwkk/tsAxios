@@ -1,5 +1,5 @@
-import Axios from './core/Axios'
 import { AxiosRequestConfig, AxiosStatic } from './types'
+import Axios from './core/Axios'
 import { extend } from './helpers/util'
 import defaults from './default'
 import mergeConfig from './core/mergeConfig'
